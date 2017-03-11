@@ -98,6 +98,7 @@ Chat.prototype={
             this.showSendChatHistory(chatMsg);
             this.socket.emit('chat',chatMsg);
             e.target.value="";
+            e.preventDefault();
         }
     },
     //聊天信息
