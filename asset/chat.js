@@ -26,20 +26,17 @@ Chat.prototype={
     },
     //显示聊天窗口
     showChatWindow:function (e) {
+        var currEle=e.target;
         if(e.currentTarget.querySelector(".active")){
             e.currentTarget.querySelector(".active").classList.remove("active");
         }
-        var userId="";
-        var nodename=e.target.nodeName.toLowerCase();
-        if(nodename=="li"){
-            e.target.classList.add('active');
-            userId=e.target.getAttribute("data-userId");
-            e.target.querySelector('.noRead').style.display="none";
-        }else if(nodename=="p"||nodename=="img"){
-            e.target.parentElement.classList.add("active");
-            e.target.parentElement.querySelector('.noRead').style.display="none";
-            userId=e.target.parentElement.getAttribute("data-userId");
+        while (currEle.nodeName.toLowerCase()!="li"){
+            currEle=currEle.parentElement;
         }
+        currEle.classList.add('active');
+        var userId=currEle.getAttribute("data-userId");
+        currEle.querySelector('.noRead').style.display="none";
+
         this.messageUl.setAttribute("data-userId",userId);//给聊天窗口设置用户id
         this.messageUl.innerHTML="";
         this.JNoChat.style.display="none";
@@ -76,22 +73,23 @@ Chat.prototype={
     },
     //发送聊天内容
     send:function (e) {
-        var chatArr=[];
-        var activeFriend=this.friendUl.querySelector('.active');
-        var friendUserId=activeFriend.getAttribute("data-userId");
-        var chatMsg={
-            myHeadImgUrl:this.JheadImg.getAttribute("src"),//我的头像地址
-            myUserId:this.socket.id,//用户id
-            myMsg:e.target.value,//我发的信息
-            friendHeadImgUrl:activeFriend.querySelector("img").getAttribute("src"),//朋友的用户id
-            friendUserId:friendUserId,//朋友的用户id
-            friendMsg:""//好友发的信息
-        }
-        if(!chatMsg.hasOwnProperty("chatDate")){
-            var date=new Date();
-            chatMsg.chatDate=date.getHours()+":"+date.getMinutes();//聊天时间
-        }
-        if(e.keyCode==13){
+        if(e.keyCode==13&&e.target.value.trim()!=""){
+            var chatArr=[];
+            var activeFriend=this.friendUl.querySelector('.active');
+            var friendUserId=activeFriend.getAttribute("data-userId");
+            var chatMsg={
+                myHeadImgUrl:this.JheadImg.getAttribute("src"),//我的头像地址
+                myUserId:this.socket.id,//用户id
+                myMsg:e.target.value,//我发的信息
+                friendHeadImgUrl:activeFriend.querySelector("img").getAttribute("src"),//朋友的用户id
+                friendUserId:friendUserId,//朋友的用户id
+                friendMsg:""//好友发的信息
+            }
+            if(!chatMsg.hasOwnProperty("chatDate")){
+                var date=new Date();
+                chatMsg.chatDate=date.getHours()+":"+date.getMinutes();//聊天时间
+            }
+
             if(sessionStorage.getItem(friendUserId)){
                 chatArr=JSON.parse(sessionStorage.getItem(friendUserId));
             }
