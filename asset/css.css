@@ -48,7 +48,7 @@ ul{list-style-type: none;}
     background-color:hsla(0,0%,100%,.1)
 }
 .friendList li .noRead{
-    display:none;position: absolute;top:8px;left: 40px;width:8px;height: 8px;background: red;border-radius: 50%;
+    position: absolute;display:none;top:8px;left: 40px;width:8px;height: 8px;background: red;border-radius: 50%;
 }
 .friendList .friendImg,.list .name{
     vertical-align:middle
