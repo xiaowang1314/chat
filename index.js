@@ -26,25 +26,29 @@ io.on('connection',function (socket) {
     });
     userArr.push(user);
 
-    //上线通知
-    io.emit('notice',userArr);
+    //app数据初始化
+    this.sockets[socket.id].emit('online', userArr);
+
+    //通知有用户上线
+    socket.broadcast.emit('noticeAll',user);
     // this.sockets[socket.id].emit('online', userArr);
 
     socket.on('disconnect',function () {
         console.log('user disconnected');
+        var offUserId=this.id;//下线用户id
         for(var i=0;i<userArr.length;i++){
             if(userArr[i].userId==this.id){
                 userArr.splice(i,1);
             }
         }
         //下线通知
-        io.emit('notice',userArr);
+        io.emit('offline',offUserId);
     });
     socket.on('chat',function (data) {
         console.log('message:'+data);
 
         // io.emit('chat',data);
-        io.sockets.sockets[data.toUserId].emit('chat', data);
+        io.sockets.sockets[data.friendUserId].emit('chat', data);
     });
 });
 
