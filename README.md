@@ -2,7 +2,7 @@
 
 ## 本项目为简化版及时通讯
 
-<img width="600" src="/xiaowang1314/chat/blob/master/asset/img/chat1.png?raw=true">
+<img width="600" src="https://raw.githubusercontent.com/xiaowang1314/chat/master/asset/img/chat1.png">
 
 ## Build Setup
 
