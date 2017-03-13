@@ -3,6 +3,7 @@
 ## 本项目为简化版及时通讯
 
 <img width="600" src="https://raw.githubusercontent.com/xiaowang1314/chat/master/asset/img/chat1.png">
+<img width="600" src="https://raw.githubusercontent.com/xiaowang1314/chat/master/asset/img/chat2.png">
 
 ## Build Setup
 
